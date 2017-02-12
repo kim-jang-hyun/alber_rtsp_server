@@ -31,7 +31,7 @@ public:
     virtual void onClose();
     // derived from network::TcpServiceHandlerObserver - end
 
-    // property funtion - begin
+    // property function - begin
     void setServiceHandler(
         network::TcpServiceHandlerPtr service_handler);
     void setObserver(SessionObserver* observer) { m_observer = observer; }
@@ -41,7 +41,7 @@ public:
 
     std::string getLocalAddress() const;
     std::string getRemoteAddress() const;
-    // property funtion - end
+    // property function - end
 
 private:
     std::vector<unsigned char> m_rtsp_message;

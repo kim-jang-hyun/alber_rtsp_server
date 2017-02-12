@@ -7,9 +7,6 @@
 
 #include "targetver.h"
 
-#include <stdio.h>
-#include <tchar.h>
-
 // memory leak check - begin
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>

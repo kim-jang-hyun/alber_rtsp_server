@@ -41,7 +41,7 @@ public:
     void playStreaming();
     void stopStreaming();
 
-    // property funtion - begin
+    // property function - begin
     void setRtspSessionId(const util::unique_id rtsp_session_id);
     util::unique_id getRtspSessionId() const;
 
@@ -54,7 +54,10 @@ public:
     rtsp::SessionPtr getRtspSession() const  { return m_rtsp_session; }
     rtp::SessionPtr getRtpSession() const { return m_rtp_session; }
     rtp::SessionPtr getRtcpSession() const { return m_rtcp_session; }
-    // property funtion - end
+
+    void setRequestUri(const std::string request_uri);
+    std::string getRequestUri() const { return m_request_uri; }
+    // property function - end
 
 private:
     task::TaskPtr createTask(
@@ -62,6 +65,8 @@ private:
 
 private:
     util::unique_id m_participant_id;
+    std::string m_request_uri;
+
     ParticipantObserver* m_observer;
 
     rtsp::SessionPtr m_rtsp_session;

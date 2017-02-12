@@ -116,6 +116,40 @@ inline T truncateString(const T& source,
     return source.substr(begin_pos, end_pos - begin_pos);
 }
 
+template <typename T>
+void readByte(const unsigned char*& data, std::size_t& data_offset,
+              T& output)
+{
+    std::size_t read_size = sizeof(output);
+
+    memset(&output, 0, read_size);
+    memcpy(&output, data, read_size);
+
+    data += read_size;
+    data_offset += read_size;
+}
+
+inline unsigned char read1byte(const unsigned char* buf)
+{
+    unsigned char n = 0;
+    n = buf[0];
+    return n;
+}
+
+inline int read3byte(const unsigned char* buf)
+{
+    int n = 0;
+    n = ((buf[0] << 16) & 0x00ff0000) | ((buf[1] << 8) & 0x0000ff00) | (buf[2]  & 0x000000ff);
+    return n;
+}
+
+inline int read4byte(const unsigned char* buf)
+{
+    int n = 0;
+    n = ((buf[0] << 24) & 0xff000000) | ((buf[1] << 16) & 0x00ff0000) | ((buf[2] << 8) & 0x0000ff00) | (buf[3]  & 0x000000ff);
+    return n;
+}
+
 inline unsigned char getMost4Bit(unsigned char src)
 {
     return ((unsigned char)0xF0 & src) >> 4;
@@ -137,6 +171,11 @@ inline void printLog(const boost::system::error_code& e)
 std::size_t toLeastSignificantBitFirst(std::size_t bit_index,
                                        std::size_t bit_size,
                                        std::size_t byte_size);
+
+unsigned char getValueFromBitRange(std::size_t bit_index, std::size_t bit_size,
+                                   unsigned char chunk);
+
+bool splitFileName(std::string uri, std::string& file_name);
 
 } // namespace util
 } // namespace rtsp_server

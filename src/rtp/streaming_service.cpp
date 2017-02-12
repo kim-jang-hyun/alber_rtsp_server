@@ -6,7 +6,9 @@
 #include <boost/foreach.hpp>
 
 #include "rtp/header.h"
-#include "rtp/payload/jpeg_frame_loader.h"
+#include "rtp/payload/jpeg/jpeg_payload.h"
+#include "rtp/payload/h264/h264_payload.h"
+#include "rtp/payload/payload_common.h"
 #include "util/path_util.h"
 #include "util/util.h"
 
@@ -21,11 +23,6 @@ namespace {
 
 using namespace rtsp_server::rtp;
 namespace chrono = boost::chrono;
-
-const unsigned short DEFAULT_FRAME_RATE = 30;
-
-//const size_t FRAME_FRAGMENTAION_SIZE = 512;
-const size_t FRAME_FRAGMENTAION_SIZE = 8096;
 
 chrono::steady_clock::time_point now()
 {
@@ -68,11 +65,51 @@ min BOOST_PREVENT_MACRO_SUBSTITUTION (chrono::time_point<Clock, Duration1> t1,
 void saveToFile(const std::string& file_name,
                 const char* data, std::size_t data_size)
 {
-    std::string jpg_file_name = file_name + ".jpg";
+    std::string jpg_file_name = file_name + ".h264";
 
     std::fstream out(jpg_file_name.c_str(), std::ios::binary | std::ios::out);
     out.write(data, data_size);
 }
+
+const unsigned char* fragmentScanData(unsigned char* scan_data,
+                                      const std::size_t scan_data_size,
+                                      const std::size_t fragment_offset,
+                                      std::size_t& fragment_size,
+                                      bool& first_fragment,
+                                      bool& last_fragment)
+{
+    namespace payload = rtsp_server::rtp::payload;
+
+    if (fragment_offset + payload::FRAGMENTAION_SIZE < scan_data_size)
+    {
+        fragment_size = payload::FRAGMENTAION_SIZE;
+    }
+    else
+    {
+        fragment_size = scan_data_size - fragment_offset;
+    }
+
+    first_fragment = fragment_offset == 0 ? true : false;
+    last_fragment =  (fragment_offset + fragment_size == scan_data_size) ?
+                      true : false;
+
+    return scan_data + fragment_offset;
+}
+
+void sendRtpPacket(const rtsp_server::rtp::SessionPtr& session,
+                   const rtsp_server::rtp::RtpPacket& rtp_packet)
+{
+    std::string remote_address = session->getRemoteRtpAddress();
+    unsigned short remote_port =  session->getRemoteRtpPort();
+
+    session->sendRtpPacket(rtp_packet.rtp_header,
+                           rtp_packet.rtp_header_size,
+                           rtp_packet.rtp_data,
+                           rtp_packet.rtp_data_size,
+                           remote_address,
+                           remote_port);
+}
+
 } // namespace
 
 namespace rtsp_server {
@@ -89,18 +126,46 @@ void StreamingService::stop()
     m_thread.join();
 }
 
-void StreamingService::add(const util::unique_id& id, SessionPtr session)
+void StreamingService::add(const util::unique_id& id,
+                           const std::string& request_uri, SessionPtr session)
 {
     boost::unique_lock<boost::mutex> lock(m_mutex);
 
     SessionDataPtr session_data(new SessionData);
+    session_data->request_uri = request_uri;
     session_data->session = session;
     session_data->play_state = false;
     session_data->next_presentation_time = init_time_point();
-    session_data->frame_rate = DEFAULT_FRAME_RATE;
+    session_data->frame_rate = payload::DEFAULT_FRAME_RATE;
 
-    PacketCreatorPtr packet_creator(new PacketCreator);
-    packet_creator->setFrameRate(DEFAULT_FRAME_RATE);
+    payload::FrameLoaderPtr frame_loader;
+    {
+        std::string exe_path = util::path_util::getExeDirectory();
+        
+        std::string stream_file_name;
+        {
+            // uri : ex)rtsp://127.0.0.1/mjpeg_test.avi/
+            std::string uri(request_uri);
+
+            // truncate last '/'
+            uri.erase(uri.end()-1);
+
+            bool split_file_name_ret = util::splitFileName(uri, stream_file_name);
+            BOOST_VERIFY(split_file_name_ret == true);
+        }
+
+        std::string stream_file_path = exe_path + "\\" + stream_file_name;
+
+        frame_loader.reset(new payload::FrameLoader(stream_file_path));
+    }
+    session_data->frame_loader = frame_loader;
+    session_data->payload_type = frame_loader->getPayloadType();
+
+    PacketCreatorPtr packet_creator;
+    {
+        packet_creator.reset(new PacketCreator);
+        packet_creator->setFrameRate(payload::DEFAULT_FRAME_RATE);
+    }
     session_data->packet_creator = packet_creator;
 
     m_session_data_map[id] = session_data;
@@ -177,7 +242,7 @@ void StreamingService::waitIfActivatedSessionIsEmpty()
 }
 
 void StreamingService::getNextPresentationTimeSessionData(time_point now,
-                                               SessionDataVec& session_data_vec)
+                                               SessionDataPtrVec& session_data_vec)
 {
     boost::unique_lock<boost::mutex> lock(m_mutex);
 
@@ -209,85 +274,149 @@ void StreamingService::getNextPresentationTimeSessionData(time_point now,
     }
 }
 
-void StreamingService::sendSingleFrame(
-    streaming_service_helper::JpegParserOutput& jpeg_parser_output,
-    SessionDataVec& session_data_vec)
+void StreamingService::sendSingleFrame(payload::FrameParserPtr frame_parser,
+                                       const SessionDataPtr& session_data)
 {
+    using namespace payload::h264;
+    using namespace payload::jpeg;
+
+    if (session_data->payload_type == payload::H264_PAYLOAD_TYPE)
+    {
+        H264FrameParserPtr h264_frame_parser = 
+            boost::dynamic_pointer_cast<H264FrameParser>(frame_parser);
+        BOOST_ASSERT(h264_frame_parser != NULL);
+
+        sendH264SingleFrame(h264_frame_parser, session_data);
+    }
+    else if (session_data->payload_type == payload::MJPEG_PAYLOAD_TYPE)
+    {
+        JpegFrameParserPtr jpeg_frame_parser = 
+            boost::dynamic_pointer_cast<JpegFrameParser>(frame_parser);
+
+        BOOST_ASSERT(jpeg_frame_parser != NULL);
+
+        sendJpegSingleFrame(jpeg_frame_parser, session_data);
+    }
+    else
+    {
+        BOOST_ASSERT(false);
+    }
+}
+
+void StreamingService::sendJpegSingleFrame(
+                                payload::jpeg::JpegFrameParserPtr frame_parser,
+                                const SessionDataPtr& session_data)
+{
+    using namespace payload::jpeg;
+
     std::size_t fragment_size = 0;
     std::size_t fragment_offset = 0;
 
-    std::size_t scan_data_size = jpeg_parser_output.scandataLength;
+    unsigned char* scan_data = frame_parser->getScanData();
+    std::size_t scan_data_size = frame_parser->getScanDataSize();
+
     while (fragment_offset < scan_data_size)
     {
-        unsigned char* fragment_buf =
-            jpeg_parser_output.scandata + fragment_offset;
+        bool first_fragment = false;
+        bool last_fragment = false;
 
-        if (fragment_offset + FRAME_FRAGMENTAION_SIZE < scan_data_size)
+        const unsigned char* fragment_buf = fragmentScanData(scan_data,
+                                                             scan_data_size,
+                                                             fragment_offset,
+                                                             fragment_size,
+                                                             first_fragment,
+                                                             last_fragment);
+
+        unsigned char* payload_buf = NULL;
+        std::size_t payload_buf_size = 0;
         {
-            fragment_size = FRAME_FRAGMENTAION_SIZE;
-        }
-        else
-        {
-            fragment_size = scan_data_size - fragment_offset;
-        }
-
-        bool first_fragment = fragment_offset == 0 ? true : false;
-        bool last_fragment = 
-            (fragment_offset + fragment_size == scan_data_size) ?
-            true : false;
-
-        // send fragment
-        BOOST_FOREACH(const SessionDataPtr session_data, session_data_vec)
-        {
-            PacketCreatorPtr packet_creator = session_data->packet_creator;
-
-            payload::JpegPayload payload;
-            makePayload(jpeg_parser_output, fragment_buf,
-                fragment_size, fragment_offset, payload);
-
-            unsigned char* rtp_header = NULL;
-            std::size_t rtp_header_size = 0;
-            {
-                packet_creator->createHeader(first_fragment, last_fragment,
-                                             rtp_header, rtp_header_size);
-            }
-
-            unsigned char* rtp_data = NULL;
-            std::size_t rtp_data_size = 0;
-            {
-                packet_creator->createData(payload, rtp_data, rtp_data_size);
-            }
-
-            // send
-            {
-                std::string remote_address =
-                    session_data->session->getRemoteRtpAddress();
-                unsigned short remote_port = 
-                    session_data->session->getRemoteRtpPort();
-
-                session_data->session->sendRtpPacket(rtp_header,
-                                                     rtp_header_size,
-                                                     rtp_data,
-                                                     rtp_data_size,
-                                                     remote_address,
-                                                     remote_port);
-            }
-            util::safe_delete_array(rtp_data);
-            util::safe_delete_array(rtp_header);
+            JpegPayload jpeg_payload;
+            jpeg_payload.makePayload(frame_parser,
+                                     fragment_buf, fragment_size,
+                                     fragment_offset);
+            payload_buf = jpeg_payload.marshall(payload_buf_size);
         }
 
-        fragment_offset += FRAME_FRAGMENTAION_SIZE;
+        RtpPacket rtp_packet;
+        session_data->packet_creator->makePacket(first_fragment,
+                                                 last_fragment,
+                                                 Header::JPEG_PAYLOAD,
+                                                 payload_buf,
+                                                 payload_buf_size,
+                                                 rtp_packet);
+
+        sendRtpPacket(session_data->session, rtp_packet);
+
+        util::safe_delete_array(rtp_packet.rtp_data);
+        util::safe_delete_array(rtp_packet.rtp_header);
+
+        fragment_offset += payload::FRAGMENTAION_SIZE;
+    }
+}
+
+void StreamingService::sendH264SingleFrame(
+                                payload::h264::H264FrameParserPtr frame_parser,
+                                const SessionDataPtr& session_data)
+{
+    using namespace payload::h264;
+
+    H264FrameParser::NalUnitVec nal_unit_vec = frame_parser->getNalUnitVec();
+    BOOST_FOREACH(H264FrameParser::NalUnit nal_unit, nal_unit_vec)
+    {
+        unsigned char* nal_data = nal_unit.data;
+        std::size_t nal_data_size = nal_unit.data_size;
+
+        bool fragmentation_mode = false;
+        if (nal_data_size > payload::FRAGMENTAION_SIZE)
+        {
+            fragmentation_mode = true;
+        }
+
+        std::size_t fragment_size = 0;
+        std::size_t fragment_offset = 0;
+
+        while (fragment_offset < nal_data_size)
+        {
+            bool first_fragment = false;
+            bool last_fragment = false;
+
+            const unsigned char* fragment_buf = fragmentScanData(nal_data,
+                                                                 nal_data_size,
+                                                                 fragment_offset,
+                                                                 fragment_size,
+                                                                 first_fragment,
+                                                                 last_fragment);
+            unsigned char* payload_buf = NULL;
+            std::size_t payload_buf_size = 0;
+            {
+                H264Payload h264_payload;
+                h264_payload.makePayload(nal_unit.header,
+                                         first_fragment, last_fragment,
+                                         fragment_buf, fragment_size,
+                                         fragmentation_mode);
+                payload_buf = h264_payload.marshall(payload_buf_size);
+            }
+
+            RtpPacket rtp_packet;
+            session_data->packet_creator->makePacket(first_fragment,
+                                                     last_fragment,
+                                                     Header::H264_PAYLOAD,
+                                                     payload_buf,
+                                                     payload_buf_size,
+                                                     rtp_packet);
+
+            sendRtpPacket(session_data->session, rtp_packet);
+
+            util::safe_delete_array(rtp_packet.rtp_data);
+            util::safe_delete_array(rtp_packet.rtp_header);
+
+            fragment_offset += payload::FRAGMENTAION_SIZE;
+        }
     }
 }
 
 void StreamingService::thread_func()
 {
-    std::string exe_path = util::path_util::getExeDirectory();
-    std::string stream_file_name = "toy_plane_liftoff.avi";
-
-    std::string stream_file_path = exe_path + "\\" + stream_file_name;
-    payload::JpegFrameLoader jpeg_frame_loader(stream_file_path);
-
     try
     {
         for(;;)
@@ -295,42 +424,51 @@ void StreamingService::thread_func()
             boost::this_thread::interruption_point();
 
             // wait & get activate session
-            SessionDataVec session_data_vec;
+            SessionDataPtrVec session_data_vec;
             {
                 waitIfActivatedSessionIsEmpty();
 
                 getNextPresentationTimeSessionData(now(), session_data_vec);
             }
 
-            // get frame data
-            unsigned char* frame_buf = NULL;
-            std::size_t frame_buf_size = 0;
-            bool get_frame_ret = jpeg_frame_loader.getNextFrame(frame_buf,
-                                                                frame_buf_size);
-            if (! get_frame_ret)
+            BOOST_FOREACH(SessionDataPtr session_data, session_data_vec)
             {
-                continue;
-            }
+                // get frame data - begin
+                unsigned char* frame_buf = NULL;
+                std::size_t frame_buf_size = 0;
+                {
+                    const payload::FrameLoaderPtr& frame_loader = session_data->frame_loader;
+                    bool get_frame_ret = frame_loader->getNextFrame(frame_buf,
+                                                                    frame_buf_size);
+                    if (! get_frame_ret)
+                    {
+                        continue;
+                    }
+                }
+                // get frame data - end
 
-            // parse jpeg frame
-            streaming_service_helper::JpegParserOutput jpeg_parser_output;
-            {
-                payload::JpegFrameParser jpeg_frame_parser;
-                bool parse_ret = jpeg_frame_parser.parse(frame_buf,
+                // parse frame - begin
+                payload::FrameParserPtr frame_parser;
+                {
+                    frame_parser = payload::createFrameParser(session_data->payload_type);
+                    if (! frame_parser)
+                    {
+                        continue;
+                    }
+
+                    bool parse_ret = frame_parser->parse(frame_buf,
                                                          frame_buf_size);
-                BOOST_VERIFY(parse_ret == true);
+                    BOOST_VERIFY(parse_ret == true);
+                    util::safe_delete_array(frame_buf);
+                }
+                // parse frame - end
 
-                getJpegParserOutput(jpeg_frame_parser, jpeg_parser_output);
+                sendSingleFrame(frame_parser, session_data);
             }
-
-            sendSingleFrame(jpeg_parser_output, session_data_vec);
-
-            util::safe_delete_array(frame_buf);
 
             // sleep
             {
-                time_point shortest_next_presentation_time_from_now = 
-                    time_point::max();
+                time_point shortest_next_presentation_time_from_now = time_point::max();
                 BOOST_FOREACH(const SessionDataPtr& session_data, session_data_vec)
                 {
                     shortest_next_presentation_time_from_now =
@@ -348,5 +486,5 @@ void StreamingService::thread_func()
     }
 }
 
-} //namespace rtp
+} // namespace rtp
 } // namespace rtsp_server

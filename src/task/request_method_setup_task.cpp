@@ -128,15 +128,19 @@ void RequestMethodSetupTask::execute()
 
         m_participant->setRtcpRemoteAddress(rtcp_remote_ip);
         m_participant->setRtcpRemotePort(rtcp_remote_port);
+
+        std::string request_uri_utf8;
+        util::convertUtf16ToUtf8(m_request_message_item.request_line.uri, request_uri_utf8);
+        m_participant->setRequestUri(request_uri_utf8);
     }
 
     // log
     {
         std::cout << "rtp address : " << "ip(" << rtp_remote_ip
-                                      << "), port(" << rtp_remote_port
+                                      << "), port(" << rtp_remote_port << ")"
                                       << std::endl;
         std::cout << "rtcp address : " << "ip(" << rtcp_remote_ip
-                                       << "), port(" << rtcp_remote_port
+                                       << "), port(" << rtcp_remote_port << ")"
                                        << std::endl;
     }
 

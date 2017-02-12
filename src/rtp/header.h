@@ -12,6 +12,7 @@ class Header
 public:
     static const int VERSION = 2;
     static const int JPEG_PAYLOAD = 26;
+    static const int H264_PAYLOAD = 96;
     static const int TIME_STAMP_HERTZ_UNIT = 90000; // Hz
 
     enum BitSize { // 8bit - octet
@@ -31,7 +32,7 @@ public:
     unsigned char* marshall(std::size_t& buf_size);
     size_t getBufferSize() const { return m_buffer_size; }
 
-    // property funtion - begin
+    // property function - begin
     void setVersion(unsigned char version);
     void setPadding(bool set);
     void setExtension(bool set);
@@ -42,7 +43,7 @@ public:
     void setTimeStamp(boost::uint32_t timestamp);
     void setSsrc(boost::uint32_t ssrc);
     void setCsrcList(const std::vector<boost::uint32_t>& csrc_list);
-    // property funtion - end
+    // property function - end
 
 private:
     int getHeaderSize();

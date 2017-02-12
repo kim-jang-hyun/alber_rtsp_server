@@ -29,8 +29,9 @@ void ParticipantManager::onAddStreaming(const util::unique_id participant_id)
 
     util::unique_id rtsp_session_id = participant->getRtspSessionId();
     rtp::SessionPtr rtp_session = participant->getRtpSession();
+    std::string request_uri = participant->getRequestUri();
 
-    m_streaming_service.add(rtsp_session_id, rtp_session);
+    m_streaming_service.add(rtsp_session_id, request_uri, rtp_session);
 }
 
 void ParticipantManager::onRemoveStreaming(const util::unique_id participant_id)

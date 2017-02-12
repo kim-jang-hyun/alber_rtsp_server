@@ -37,7 +37,7 @@ public:
                             std::string ip, unsigned short port);
     void readAsync();
 
-    // property funtion - begin
+    // property function - begin
     asio::ip::udp::socket& getSocket();
     virtual util::unique_id getId() const;
 
@@ -45,7 +45,7 @@ public:
     virtual std::string getRemoteIp() const;
     virtual unsigned short getLocalPort() const;
     virtual unsigned short getRemotePort() const;
-    // property funtion - end
+    // property function - end
 
 private:
     // type declare - begin

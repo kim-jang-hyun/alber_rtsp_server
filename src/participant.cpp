@@ -129,6 +129,11 @@ void Participant::setRtcpRemotePort(const unsigned short port)
     m_rtcp_session->setRemoteRtcpPort(port);
 }
 
+void Participant::setRequestUri(const std::string request_uri)
+{
+    m_request_uri = request_uri;
+}
+
 task::TaskPtr Participant::createTask(
     const rtsp::message::MessageInterfacePtr msg)
 {

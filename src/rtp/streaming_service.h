@@ -10,8 +10,11 @@
 #include <boost/thread/thread.hpp>
 
 #include "rtp/packet_creator.h"
+#include "rtp/payload/frame_loader.h"
+#include "rtp/payload/frame_parser.h"
+#include "rtp/payload/h264/h264_frame_parser.h"
+#include "rtp/payload/jpeg/jpeg_frame_parser.h"
 #include "rtp/session.h"
-#include "rtp/streaming_service_helper.h"
 #include "util/unique_id.h"
 
 namespace rtsp_server {
@@ -25,35 +28,46 @@ public:
 
     struct SessionData
     {
+        std::string request_uri;
         SessionPtr session;
+
         bool play_state;
+
         time_point next_presentation_time;
         unsigned short frame_rate;
+
+        payload::FrameLoaderPtr frame_loader;
+        payload::PayloadType payload_type;
+
         PacketCreatorPtr packet_creator;
     };
     typedef boost::shared_ptr<SessionData> SessionDataPtr;
 
     typedef std::map<util::unique_id, SessionDataPtr> SessionDataMap;
-    typedef std::vector<SessionDataPtr> SessionDataVec;
+    typedef std::vector<SessionDataPtr> SessionDataPtrVec;
     // type declare - end
 
     void start();
     void stop();
 
-    void add(const util::unique_id& id, SessionPtr session);
+    void add(const util::unique_id& id, const std::string& request_uri,
+             SessionPtr session);
     void remove(const util::unique_id& id);
 
     bool playStreaming(const util::unique_id& id);
     bool stopStreaming(const util::unique_id& id);
 
-    void waitIfActivatedSessionIsEmpty();
-
 private:
+    void waitIfActivatedSessionIsEmpty();
     void getNextPresentationTimeSessionData(time_point now,
-                                            SessionDataVec& session_data_vec);
-    void sendSingleFrame(
-        streaming_service_helper::JpegParserOutput& jpeg_parser_output,
-        SessionDataVec& session_data_vec);
+                                            SessionDataPtrVec& session_data_vec);
+
+    void sendSingleFrame(payload::FrameParserPtr frame_parser,
+                         const SessionDataPtr& session_data);
+    void sendJpegSingleFrame(payload::jpeg::JpegFrameParserPtr frame_parser,
+                             const SessionDataPtr& session_data);
+    void sendH264SingleFrame(payload::h264::H264FrameParserPtr frame_parser,
+                             const SessionDataPtr& session_data);
 
     void thread_func();
 
@@ -66,7 +80,7 @@ private:
     mutable boost::mutex m_mutex;
 };
 
-} //namespace rtp
+} // namespace rtp
 } // namespace rtsp_server
 
 #endif // __RTSP_SERVER_RTP_STREAMING_SERVICE_H__

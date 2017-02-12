@@ -5,7 +5,7 @@
 
 #include <string>
 #include "rtsp/message/request/message_item.h"
-#include "rtsp/message/sdp.h"
+#include "rtsp/message/sdp/sdp.h"
 
 namespace rtsp_server {
 namespace rtsp {
@@ -23,7 +23,7 @@ public:
     // derived from Message - end
 
 private:
-    int errorCheck(const request::MessageItem& request_msg_item);
+    int errorCheck(const request::MessageItem& request_msg_item) const;
 
     void addDateHeader();
     void addContentType();
@@ -32,7 +32,8 @@ private:
     void addSdp();
 
 private:
-    Sdp m_sdp;
+    sdp::SdpPtr m_sdp;
+    std::string m_local_ip;
 };
 
 } // namespace response

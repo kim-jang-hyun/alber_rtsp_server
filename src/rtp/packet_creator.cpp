@@ -1,11 +1,12 @@
 #include "rtp/packet_creator.h"
 
 #include <ctime>
-#include <iostream>
 
 #include <boost/assert.hpp>
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
+
+#include "rtp/header.h"
 
 #ifdef _DEBUG
 #ifndef DBG_NEW
@@ -104,9 +105,20 @@ PacketCreator::PacketCreator()
     random(0, getSequenceNumberMaxValue(), m_sequence_number);
 }
 
-void PacketCreator::createHeader(bool first_fragment, bool last_fragment,
-                                 unsigned char*& rtp_header,
-                                 std::size_t& rtp_header_size)
+void PacketCreator::makePacket(bool first_fragment, bool last_fragment,
+                               int payload_type,
+                               unsigned char* payload_buf, size_t payload_buf_size,
+                               RtpPacket& rtp_packet)
+{
+    makeHeader(first_fragment, last_fragment, payload_type,
+               rtp_packet.rtp_header, rtp_packet.rtp_header_size);
+
+    makeData(payload_buf, payload_buf_size,
+             rtp_packet.rtp_data, rtp_packet.rtp_data_size);
+}
+
+void PacketCreator::makeHeader(bool first_fragment, bool last_fragment, int payload_type,
+                               unsigned char*& rtp_header, std::size_t& rtp_header_size)
 {
     bool marker = false;
 
@@ -125,7 +137,7 @@ void PacketCreator::createHeader(bool first_fragment, bool last_fragment,
     header.setExtension(false);
     header.setCsrcCount(0);
     header.setMarker(marker);
-    header.setPayloadType(rtp::Header::JPEG_PAYLOAD);
+    header.setPayloadType((unsigned char)payload_type);
 
     m_sequence_number = incrementSequenceNumber(m_sequence_number);
     header.setSequenceNumber(static_cast<boost::uint16_t>(m_sequence_number));
@@ -136,11 +148,11 @@ void PacketCreator::createHeader(bool first_fragment, bool last_fragment,
     rtp_header = header.marshall(rtp_header_size);
 }
 
-void PacketCreator::createData(payload::JpegPayload& jpeg_payload,
-                unsigned char*& rtp_data,
-                std::size_t& rtp_data_size)
+void PacketCreator::makeData(unsigned char* payload_buf, std::size_t payload_buf_size,
+                             unsigned char*& rtp_data, std::size_t& rtp_data_size)
 {
-    rtp_data = jpeg_payload.marshall(rtp_data_size);
+    rtp_data = payload_buf;
+    rtp_data_size = payload_buf_size;
 }
 
 } // namespace rtp

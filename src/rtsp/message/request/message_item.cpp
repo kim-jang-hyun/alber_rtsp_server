@@ -30,7 +30,7 @@ void MessageItem::setRequestLine(const std::wstring& method,
 void MessageItem::addHeader(const std::wstring& name,
                             const std::wstring& value)
 {
-    if (isRequestHeader(name))
+    if (isGeneralHeader(name))
     {
         general_header_map[name] = value;
     }
@@ -38,7 +38,7 @@ void MessageItem::addHeader(const std::wstring& name,
     {
         request_header_map[name] = value;
     }
-    else if (isRequestHeader(name))
+    else if (isEntityHeader(name))
     {
         entity_header_map[name] = value;
     }
@@ -51,7 +51,7 @@ void MessageItem::addHeader(const std::wstring& name,
 bool MessageItem::getHeaderValue(const std::wstring& name,
                                  std::wstring& value) const
 {
-    if (isRequestHeader(name))
+    if (isGeneralHeader(name))
     {
         return util::getMapValue(general_header_map, name, value);
     }
@@ -59,7 +59,7 @@ bool MessageItem::getHeaderValue(const std::wstring& name,
     {
         return util::getMapValue(request_header_map, name, value);
     }
-    else if (isRequestHeader(name))
+    else if (isEntityHeader(name))
     {
         return util::getMapValue(entity_header_map, name, value);
     }

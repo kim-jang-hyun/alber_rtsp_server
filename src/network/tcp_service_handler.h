@@ -30,7 +30,7 @@ public:
     virtual void writeAsync(unsigned char* data, unsigned int size);
     void readAsync();
 
-    // property funtion - begin
+    // property function - begin
     void setObserver(TcpServiceHandlerObserver* observer);
 
     asio::ip::tcp::socket& getSocket();
@@ -38,7 +38,7 @@ public:
     virtual std::string getRemoteIp() const;
     virtual unsigned short getLocalPort() const;
     virtual unsigned short getRemotePort() const;
-    // property funtion - end
+    // property function - end
 
 private:
     // type declare - begin

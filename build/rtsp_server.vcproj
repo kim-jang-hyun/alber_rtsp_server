@@ -251,6 +251,10 @@
 				Name="util"
 				>
 				<File
+					RelativePath="..\src\util\path_util.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\util\path_util.h"
 					>
 				</File>
@@ -334,41 +338,69 @@
 					RelativePath="..\src\rtp\streaming_service.h"
 					>
 				</File>
-				<File
-					RelativePath="..\src\rtp\streaming_service_helper.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\rtp\streaming_service_helper.h"
-					>
-				</File>
 				<Filter
 					Name="payload"
 					>
 					<File
-						RelativePath="..\src\rtp\payload\jpeg_frame_loader.cpp"
+						RelativePath="..\src\rtp\payload\frame_loader.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\src\rtp\payload\jpeg_frame_loader.h"
+						RelativePath="..\src\rtp\payload\frame_loader.h"
 						>
 					</File>
 					<File
-						RelativePath="..\src\rtp\payload\jpeg_frame_parser.cpp"
+						RelativePath="..\src\rtp\payload\frame_parser.cpp"
 						>
 					</File>
 					<File
-						RelativePath="..\src\rtp\payload\jpeg_frame_parser.h"
+						RelativePath="..\src\rtp\payload\frame_parser.h"
 						>
 					</File>
 					<File
-						RelativePath="..\src\rtp\payload\jpeg_payload.cpp"
+						RelativePath="..\src\rtp\payload\payload_common.h"
 						>
 					</File>
-					<File
-						RelativePath="..\src\rtp\payload\jpeg_payload.h"
+					<Filter
+						Name="jpeg"
 						>
-					</File>
+						<File
+							RelativePath="..\src\rtp\payload\jpeg\jpeg_frame_parser.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\src\rtp\payload\jpeg\jpeg_frame_parser.h"
+							>
+						</File>
+						<File
+							RelativePath="..\src\rtp\payload\jpeg\jpeg_payload.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\src\rtp\payload\jpeg\jpeg_payload.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="h264"
+						>
+						<File
+							RelativePath="..\src\rtp\payload\h264\h264_frame_parser.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\src\rtp\payload\h264\h264_frame_parser.h"
+							>
+						</File>
+						<File
+							RelativePath="..\src\rtp\payload\h264\h264_payload.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\src\rtp\payload\h264\h264_payload.h"
+							>
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 			<Filter
@@ -515,14 +547,6 @@
 					</File>
 					<File
 						RelativePath="..\src\rtsp\message\message_interface.h"
-						>
-					</File>
-					<File
-						RelativePath="..\src\rtsp\message\sdp.cpp"
-						>
-					</File>
-					<File
-						RelativePath="..\src\rtsp\message\sdp.h"
 						>
 					</File>
 					<File
@@ -674,6 +698,34 @@
 						</File>
 						<File
 							RelativePath="..\src\rtsp\message\response\teardown_message.h"
+							>
+						</File>
+					</Filter>
+					<Filter
+						Name="sdp"
+						>
+						<File
+							RelativePath="..\src\rtsp\message\sdp\sdp.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\src\rtsp\message\sdp\sdp.h"
+							>
+						</File>
+						<File
+							RelativePath="..\src\rtsp\message\sdp\sdp_h264.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\src\rtsp\message\sdp\sdp_h264.h"
+							>
+						</File>
+						<File
+							RelativePath="..\src\rtsp\message\sdp\sdp_mjpeg.cpp"
+							>
+						</File>
+						<File
+							RelativePath="..\src\rtsp\message\sdp\sdp_mjpeg.h"
 							>
 						</File>
 					</Filter>
