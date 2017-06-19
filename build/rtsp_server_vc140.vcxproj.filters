@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{bb4fc9c9-a406-454c-bc4e-9ffe6cc2d8d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\network">
+      <UniqueIdentifier>{ec0d6c8f-0fa3-4c6c-afbf-4fc31024cdbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\pre_compile">
+      <UniqueIdentifier>{adf6207a-9f4a-43d6-8238-9da63bba4949}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rtp">
+      <UniqueIdentifier>{3f4ee06f-cb4c-4ced-8ade-e2b807024484}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rtp\payload">
+      <UniqueIdentifier>{2750e9ac-df43-457a-bb1c-557574ad3f4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rtp\payload\h264">
+      <UniqueIdentifier>{53f892a3-1421-4502-89fe-a30eaa31a1f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rtp\payload\jpeg">
+      <UniqueIdentifier>{0b9c67ec-9b99-4bce-b408-48b544a1aa82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rtsp">
+      <UniqueIdentifier>{5d0d7faa-57f8-4db4-8c49-cb6d9dcc35c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rtsp\message">
+      <UniqueIdentifier>{0432cc3e-88df-40c0-b7c2-0dfeb3601aac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rtsp\message\request">
+      <UniqueIdentifier>{bcca0522-83de-4046-8c1b-149630792463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rtsp\message\response">
+      <UniqueIdentifier>{4c380217-bf2e-4dbb-9fb5-ee38bf6d1afe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rtsp\message\sdp">
+      <UniqueIdentifier>{e26796dc-7511-4e46-b114-4a945ee2ddbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\task">
+      <UniqueIdentifier>{20bc757f-968d-4078-b62a-44b1f5efe0ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{263aa972-fa29-40dc-a457-41ca2333f71d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\rtsp\parser">
+      <UniqueIdentifier>{15a3cc34-8f3c-4a72-bb5c-6df4a34451d5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\participant.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\participant_manager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp_server.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\util.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\utf8_converter.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\time_util.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\util\path_util.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\task\elapsed_timer.cpp">
+      <Filter>src\task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\task\request_method_describe_task.cpp">
+      <Filter>src\task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\task\request_method_options_task.cpp">
+      <Filter>src\task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\task\request_method_play_task.cpp">
+      <Filter>src\task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\task\request_method_setup_task.cpp">
+      <Filter>src\task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\task\request_method_teardown_task.cpp">
+      <Filter>src\task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\task\task.cpp">
+      <Filter>src\task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\task\worker.cpp">
+      <Filter>src\task</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\session.cpp">
+      <Filter>src\rtsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\parser\parser_manager.cpp">
+      <Filter>src\rtsp\parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\parser\request_parser.cpp">
+      <Filter>src\rtsp\parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\general_header.cpp">
+      <Filter>src\rtsp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\entity_header.cpp">
+      <Filter>src\rtsp\message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\request\message_factory.cpp">
+      <Filter>src\rtsp\message\request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\request\message_item.cpp">
+      <Filter>src\rtsp\message\request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\request\request_header.cpp">
+      <Filter>src\rtsp\message\request</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\response\describe_message.cpp">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\response\message.cpp">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\response\message_item.cpp">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\response\options_message.cpp">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\response\play_message.cpp">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\response\response_header.cpp">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\response\setup_message.cpp">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\response\status_line.cpp">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\response\teardown_message.cpp">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\sdp\sdp.cpp">
+      <Filter>src\rtsp\message\sdp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\sdp\sdp_h264.cpp">
+      <Filter>src\rtsp\message\sdp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\sdp\sdp_mjpeg.cpp">
+      <Filter>src\rtsp\message\sdp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\header.cpp">
+      <Filter>src\rtp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\packet_creator.cpp">
+      <Filter>src\rtp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\session.cpp">
+      <Filter>src\rtp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\streaming_service.cpp">
+      <Filter>src\rtp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\payload\frame_loader.cpp">
+      <Filter>src\rtp\payload</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\payload\frame_parser.cpp">
+      <Filter>src\rtp\payload</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\payload\jpeg\jpeg_frame_parser.cpp">
+      <Filter>src\rtp\payload\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\payload\jpeg\jpeg_payload.cpp">
+      <Filter>src\rtp\payload\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\payload\h264\h264_frame_parser.cpp">
+      <Filter>src\rtp\payload\h264</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\payload\h264\h264_payload.cpp">
+      <Filter>src\rtp\payload\h264</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pre_compile\stdafx.cpp">
+      <Filter>src\pre_compile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\network\acceptor.cpp">
+      <Filter>src\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\network\connector.cpp">
+      <Filter>src\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\network\io_service.cpp">
+      <Filter>src\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\network\tcp_service_handler.cpp">
+      <Filter>src\network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\network\udp_service_handler.cpp">
+      <Filter>src\network</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\participant.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\participant_manager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\participant_observer.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp_server.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\util.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\utf8_converter.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\unique_id.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\time_util.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\util\path_util.h">
+      <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\task\elapsed_timer.h">
+      <Filter>src\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\task\request_method_describe_task.h">
+      <Filter>src\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\task\request_method_options_task.h">
+      <Filter>src\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\task\request_method_play_task.h">
+      <Filter>src\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\task\request_method_setup_task.h">
+      <Filter>src\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\task\request_method_teardown_task.h">
+      <Filter>src\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\task\task.h">
+      <Filter>src\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\task\worker.h">
+      <Filter>src\task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\session_observer.h">
+      <Filter>src\rtsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\session.h">
+      <Filter>src\rtsp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\parser\parser_interface.h">
+      <Filter>src\rtsp\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\parser\parser_manager.h">
+      <Filter>src\rtsp\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\parser\request_parser.h">
+      <Filter>src\rtsp\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\entity_header.h">
+      <Filter>src\rtsp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\general_header.h">
+      <Filter>src\rtsp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\message_interface.h">
+      <Filter>src\rtsp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\syntax.h">
+      <Filter>src\rtsp\message</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\request\message.h">
+      <Filter>src\rtsp\message\request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\request\message_factory.h">
+      <Filter>src\rtsp\message\request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\request\message_item.h">
+      <Filter>src\rtsp\message\request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\request\request_header.h">
+      <Filter>src\rtsp\message\request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\request\request_line.h">
+      <Filter>src\rtsp\message\request</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\response\describe_message.h">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\response\message.h">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\response\message_item.h">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\response\options_message.h">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\response\play_message.h">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\response\response_header.h">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\response\setup_message.h">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\response\status_code_and_reason_phrase_table.h">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\response\status_line.h">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\response\teardown_message.h">
+      <Filter>src\rtsp\message\response</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\sdp\sdp.h">
+      <Filter>src\rtsp\message\sdp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\sdp\sdp_h264.h">
+      <Filter>src\rtsp\message\sdp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtsp\message\sdp\sdp_mjpeg.h">
+      <Filter>src\rtsp\message\sdp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtp\header.h">
+      <Filter>src\rtp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtp\packet_creator.h">
+      <Filter>src\rtp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtp\session.h">
+      <Filter>src\rtp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtp\streaming_service.h">
+      <Filter>src\rtp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtp\payload\frame_loader.h">
+      <Filter>src\rtp\payload</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtp\payload\frame_parser.h">
+      <Filter>src\rtp\payload</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtp\payload\payload_common.h">
+      <Filter>src\rtp\payload</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtp\payload\jpeg\jpeg_frame_parser.h">
+      <Filter>src\rtp\payload\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtp\payload\jpeg\jpeg_payload.h">
+      <Filter>src\rtp\payload\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtp\payload\h264\h264_frame_parser.h">
+      <Filter>src\rtp\payload\h264</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\rtp\payload\h264\h264_payload.h">
+      <Filter>src\rtp\payload\h264</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pre_compile\stdafx.h">
+      <Filter>src\pre_compile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pre_compile\targetver.h">
+      <Filter>src\pre_compile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\network\acceptor.h">
+      <Filter>src\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\network\acceptor_observer.h">
+      <Filter>src\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\network\connector.h">
+      <Filter>src\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\network\io_service.h">
+      <Filter>src\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\network\tcp_service_handler.h">
+      <Filter>src\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\network\tcp_service_handler_observer.h">
+      <Filter>src\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\network\udp_service_handler.h">
+      <Filter>src\network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\network\udp_service_handler_observer.h">
+      <Filter>src\network</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
