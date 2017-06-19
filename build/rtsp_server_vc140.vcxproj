@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\network\acceptor.h" />
+    <ClInclude Include="..\src\network\acceptor_observer.h" />
+    <ClInclude Include="..\src\network\connector.h" />
+    <ClInclude Include="..\src\network\io_service.h" />
+    <ClInclude Include="..\src\network\tcp_service_handler.h" />
+    <ClInclude Include="..\src\network\tcp_service_handler_observer.h" />
+    <ClInclude Include="..\src\network\udp_service_handler.h" />
+    <ClInclude Include="..\src\network\udp_service_handler_observer.h" />
+    <ClInclude Include="..\src\participant.h" />
+    <ClInclude Include="..\src\participant_manager.h" />
+    <ClInclude Include="..\src\participant_observer.h" />
+    <ClInclude Include="..\src\pre_compile\stdafx.h" />
+    <ClInclude Include="..\src\pre_compile\targetver.h" />
+    <ClInclude Include="..\src\rtp\header.h" />
+    <ClInclude Include="..\src\rtp\packet_creator.h" />
+    <ClInclude Include="..\src\rtp\payload\frame_loader.h" />
+    <ClInclude Include="..\src\rtp\payload\frame_parser.h" />
+    <ClInclude Include="..\src\rtp\payload\h264\h264_frame_parser.h" />
+    <ClInclude Include="..\src\rtp\payload\h264\h264_payload.h" />
+    <ClInclude Include="..\src\rtp\payload\jpeg\jpeg_frame_parser.h" />
+    <ClInclude Include="..\src\rtp\payload\jpeg\jpeg_payload.h" />
+    <ClInclude Include="..\src\rtp\payload\payload_common.h" />
+    <ClInclude Include="..\src\rtp\session.h" />
+    <ClInclude Include="..\src\rtp\streaming_service.h" />
+    <ClInclude Include="..\src\rtsp\message\entity_header.h" />
+    <ClInclude Include="..\src\rtsp\message\general_header.h" />
+    <ClInclude Include="..\src\rtsp\message\message_interface.h" />
+    <ClInclude Include="..\src\rtsp\message\request\message.h" />
+    <ClInclude Include="..\src\rtsp\message\request\message_factory.h" />
+    <ClInclude Include="..\src\rtsp\message\request\message_item.h" />
+    <ClInclude Include="..\src\rtsp\message\request\request_header.h" />
+    <ClInclude Include="..\src\rtsp\message\request\request_line.h" />
+    <ClInclude Include="..\src\rtsp\message\response\describe_message.h" />
+    <ClInclude Include="..\src\rtsp\message\response\message.h" />
+    <ClInclude Include="..\src\rtsp\message\response\message_item.h" />
+    <ClInclude Include="..\src\rtsp\message\response\options_message.h" />
+    <ClInclude Include="..\src\rtsp\message\response\play_message.h" />
+    <ClInclude Include="..\src\rtsp\message\response\response_header.h" />
+    <ClInclude Include="..\src\rtsp\message\response\setup_message.h" />
+    <ClInclude Include="..\src\rtsp\message\response\status_code_and_reason_phrase_table.h" />
+    <ClInclude Include="..\src\rtsp\message\response\status_line.h" />
+    <ClInclude Include="..\src\rtsp\message\response\teardown_message.h" />
+    <ClInclude Include="..\src\rtsp\message\sdp\sdp.h" />
+    <ClInclude Include="..\src\rtsp\message\sdp\sdp_h264.h" />
+    <ClInclude Include="..\src\rtsp\message\sdp\sdp_mjpeg.h" />
+    <ClInclude Include="..\src\rtsp\message\syntax.h" />
+    <ClInclude Include="..\src\rtsp\parser\parser_interface.h" />
+    <ClInclude Include="..\src\rtsp\parser\parser_manager.h" />
+    <ClInclude Include="..\src\rtsp\parser\request_parser.h" />
+    <ClInclude Include="..\src\rtsp\session.h" />
+    <ClInclude Include="..\src\rtsp\session_observer.h" />
+    <ClInclude Include="..\src\rtsp_server.h" />
+    <ClInclude Include="..\src\task\elapsed_timer.h" />
+    <ClInclude Include="..\src\task\request_method_describe_task.h" />
+    <ClInclude Include="..\src\task\request_method_options_task.h" />
+    <ClInclude Include="..\src\task\request_method_play_task.h" />
+    <ClInclude Include="..\src\task\request_method_setup_task.h" />
+    <ClInclude Include="..\src\task\request_method_teardown_task.h" />
+    <ClInclude Include="..\src\task\task.h" />
+    <ClInclude Include="..\src\task\worker.h" />
+    <ClInclude Include="..\src\util\path_util.h" />
+    <ClInclude Include="..\src\util\time_util.h" />
+    <ClInclude Include="..\src\util\unique_id.h" />
+    <ClInclude Include="..\src\util\utf8_converter.h" />
+    <ClInclude Include="..\src\util\util.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\network\acceptor.cpp" />
+    <ClCompile Include="..\src\network\connector.cpp" />
+    <ClCompile Include="..\src\network\io_service.cpp" />
+    <ClCompile Include="..\src\network\tcp_service_handler.cpp" />
+    <ClCompile Include="..\src\network\udp_service_handler.cpp" />
+    <ClCompile Include="..\src\participant.cpp" />
+    <ClCompile Include="..\src\participant_manager.cpp" />
+    <ClCompile Include="..\src\pre_compile\stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\header.cpp" />
+    <ClCompile Include="..\src\rtp\packet_creator.cpp" />
+    <ClCompile Include="..\src\rtp\payload\frame_loader.cpp" />
+    <ClCompile Include="..\src\rtp\payload\frame_parser.cpp" />
+    <ClCompile Include="..\src\rtp\payload\h264\h264_frame_parser.cpp" />
+    <ClCompile Include="..\src\rtp\payload\h264\h264_payload.cpp" />
+    <ClCompile Include="..\src\rtp\payload\jpeg\jpeg_frame_parser.cpp" />
+    <ClCompile Include="..\src\rtp\payload\jpeg\jpeg_payload.cpp" />
+    <ClCompile Include="..\src\rtp\session.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)\rtp_session</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)\rtp_session</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\src\rtp\streaming_service.cpp" />
+    <ClCompile Include="..\src\rtsp.cpp" />
+    <ClCompile Include="..\src\rtsp\message\entity_header.cpp" />
+    <ClCompile Include="..\src\rtsp\message\general_header.cpp" />
+    <ClCompile Include="..\src\rtsp\message\request\message_factory.cpp" />
+    <ClCompile Include="..\src\rtsp\message\request\message_item.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)\request_message_item</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)\request_message_item</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\request\request_header.cpp" />
+    <ClCompile Include="..\src\rtsp\message\response\describe_message.cpp" />
+    <ClCompile Include="..\src\rtsp\message\response\message.cpp" />
+    <ClCompile Include="..\src\rtsp\message\response\message_item.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)\response_message_item</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)\response_message_item</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp\message\response\options_message.cpp" />
+    <ClCompile Include="..\src\rtsp\message\response\play_message.cpp" />
+    <ClCompile Include="..\src\rtsp\message\response\response_header.cpp" />
+    <ClCompile Include="..\src\rtsp\message\response\setup_message.cpp" />
+    <ClCompile Include="..\src\rtsp\message\response\status_line.cpp" />
+    <ClCompile Include="..\src\rtsp\message\response\teardown_message.cpp" />
+    <ClCompile Include="..\src\rtsp\message\sdp\sdp.cpp" />
+    <ClCompile Include="..\src\rtsp\message\sdp\sdp_h264.cpp" />
+    <ClCompile Include="..\src\rtsp\message\sdp\sdp_mjpeg.cpp" />
+    <ClCompile Include="..\src\rtsp\parser\parser_manager.cpp" />
+    <ClCompile Include="..\src\rtsp\parser\request_parser.cpp" />
+    <ClCompile Include="..\src\rtsp\session.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)\rtsp_session</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)\rtsp_session</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="..\src\rtsp_server.cpp" />
+    <ClCompile Include="..\src\task\elapsed_timer.cpp" />
+    <ClCompile Include="..\src\task\request_method_describe_task.cpp" />
+    <ClCompile Include="..\src\task\request_method_options_task.cpp" />
+    <ClCompile Include="..\src\task\request_method_play_task.cpp" />
+    <ClCompile Include="..\src\task\request_method_setup_task.cpp" />
+    <ClCompile Include="..\src\task\request_method_teardown_task.cpp" />
+    <ClCompile Include="..\src\task\task.cpp" />
+    <ClCompile Include="..\src\task\worker.cpp" />
+    <ClCompile Include="..\src\util\path_util.cpp" />
+    <ClCompile Include="..\src\util\time_util.cpp" />
+    <ClCompile Include="..\src\util\utf8_converter.cpp" />
+    <ClCompile Include="..\src\util\util.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B659936E-D475-4F9B-B8AA-4CC2772D5EB9}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>rtsp_server_vc140</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>bin\vc140\dbg\</OutDir>
+    <IntDir>obj\vc140\dbg\</IntDir>
+    <TargetName>$(ProjectName)_dbg</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>bin\vc140\rel\</OutDir>
+    <IntDir>obj\vc140\rel\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../3rd_party/boost_1_64_0;../3rd_party/ffmpeg/include;../src</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>$(OutDir)\$(ProjectName)_dbg.exe</OutputFile>
+      <AdditionalLibraryDirectories>../3rd_party/boost_1_64_0/stage/lib;../3rd_party/ffmpeg/lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_system-vc140-mt-gd-1_64.lib;avformat.lib;avcodec.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy_library.bat -vc140_dbg</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../3rd_party/boost_1_64_0;../3rd_party/ffmpeg/include;../src</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <ForcedIncludeFiles>stdafx.h</ForcedIncludeFiles>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>../3rd_party/boost_1_64_0/stage/lib;../3rd_party/ffmpeg/lib</AdditionalLibraryDirectories>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <AdditionalDependencies>libboost_system-vc140-mt-1_64.lib;avformat.lib;avcodec.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/safeseh:no %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy_library.bat -vc140_rel</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
